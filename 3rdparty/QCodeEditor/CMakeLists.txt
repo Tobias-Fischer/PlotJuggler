@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.6)
 project(QCodeEditor)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 set(RESOURCES_FILE
     resources/qcodeeditor_resources.qrc
@@ -70,9 +70,7 @@ set(CMAKE_AUTOMOC On)
 set(CMAKE_AUTORCC ON)
 
 # Find includes in corresponding build directories
-find_package(Qt5Core    CONFIG REQUIRED)
-find_package(Qt5Widgets CONFIG REQUIRED)
-find_package(Qt5Gui     CONFIG REQUIRED)
+find_package(Qt5 COMPONENTS Core Widgets Gui REQUIRED)
 
 add_library(QCodeEditor STATIC
     ${RESOURCES_FILE}
