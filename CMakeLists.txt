@@ -191,7 +191,7 @@ if (BASE_AS_SHARED)
         ${PLOTJUGGLER_BASE_SRC}
         ${PLOTJUGGLER_BASE_MOCS}
         )
-    target_link_libraries(plotjuggler_base PRIVATE lua_objects plotjuggler_qwt_objects)
+    target_link_libraries(plotjuggler_base PRIVATE lua_static plotjuggler_qwt_objects ${QT_LINK_LIBRARIES})
 else()
     add_library(plotjuggler_base STATIC
         ${PLOTJUGGLER_BASE_SRC}
