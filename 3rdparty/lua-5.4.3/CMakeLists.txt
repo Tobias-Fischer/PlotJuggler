@@ -1,3 +1,5 @@
+include_directories( ./src  )
+
 set(LUA_LIB_SRCS 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/lapi.c 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/lcode.c 
@@ -32,7 +34,7 @@ set(LUA_LIB_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/loadlib.c 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/linit.c
     )
-set(LUA_LIB_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+# set(LUA_LIB_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 add_compile_options(-fPIC)
 
@@ -40,7 +42,7 @@ add_library(lua_static STATIC
     ${LUA_LIB_SRCS}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/lua.c
 )
-target_include_directories(lua_static PUBLIC ${LUA_LIB_INCLUDE})
+# target_include_directories(lua_static PUBLIC ${LUA_LIB_INCLUDE})
 
 add_library(lua_objects OBJECT ${LUA_LIB_SRCS})
 
@@ -53,3 +55,11 @@ if(EMSCRIPTEN)
 endif()
 target_compile_definitions(lua_static PUBLIC ${LUA_DEFINITIONS})
 
+install(
+     TARGETS
+        lua_static
+     EXPORT export_lua_static
+     LIBRARY DESTINATION lib
+     ARCHIVE DESTINATION lib
+     RUNTIME DESTINATION bin
+     INCLUDES DESTINATION include )
