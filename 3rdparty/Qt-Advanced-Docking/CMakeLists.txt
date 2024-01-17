@@ -67,7 +67,8 @@ target_link_libraries(qt_advanced_docking PUBLIC Qt5::Core Qt5::Gui Qt5::Widgets
 
 if(UNIX AND NOT APPLE)
     target_link_libraries(qt_advanced_docking PUBLIC Qt5::X11Extras)
-        target_link_libraries(qt_advanced_docking PRIVATE xcb)
+    target_link_libraries(qt_advanced_docking PRIVATE ${XCB_LIBRARIES})
+    target_include_directories(qt_advanced_docking SYSTEM PUBLIC ${XCB_INCLUDE_DIRS})
 endif()
 
 set_target_properties(qt_advanced_docking PROPERTIES
