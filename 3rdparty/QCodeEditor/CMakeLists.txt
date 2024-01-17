@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.20)
 project(QCodeEditor)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -69,10 +69,7 @@ set(CMAKE_AUTOMOC On)
 # Create code from resource files
 set(CMAKE_AUTORCC ON)
 
-# Find includes in corresponding build directories
-find_package(Qt5Core    CONFIG REQUIRED)
-find_package(Qt5Widgets CONFIG REQUIRED)
-find_package(Qt5Gui     CONFIG REQUIRED)
+find_package(Qt5 COMPONENTS Core Widgets Gui REQUIRED)
 
 add_library(QCodeEditor STATIC
     ${RESOURCES_FILE}
@@ -83,21 +80,6 @@ add_library(QCodeEditor STATIC
 target_include_directories(QCodeEditor PUBLIC
     include
 )
-
-if(CMAKE_COMPILER_IS_GNUCXX)
-    target_compile_options(QCodeEditor
-		PRIVATE
-		-ansi
-		-pedantic
-		-Wall
-		-Wextra
-		-Weffc++
-		-Woverloaded-virtual
-		-Winit-self
-		-std=c++11
-		-Wunreachable-code
-	)
-endif(CMAKE_COMPILER_IS_GNUCXX)
 
 target_link_libraries(QCodeEditor
     Qt5::Core
