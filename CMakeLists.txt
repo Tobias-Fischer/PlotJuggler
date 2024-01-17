@@ -123,11 +123,9 @@ find_package(Qt5 REQUIRED COMPONENTS
 set( QT_LINK_LIBRARIES
     Qt5::Core
     Qt5::Widgets
-    Qt5::PrintSupport
     Qt5::Xml
     Qt5::Concurrent
     Qt5::Svg
-    Qt5::OpenGL
     Qt5::WebSockets
     )
 
@@ -193,20 +191,13 @@ if (BASE_AS_SHARED)
         ${PLOTJUGGLER_BASE_SRC}
         ${PLOTJUGGLER_BASE_MOCS}
         )
-    target_link_libraries(plotjuggler_base PRIVATE lua_objects plotjuggler_qwt_objects)
+    target_link_libraries(plotjuggler_base PRIVATE ${QT_LINK_LIBRARIES} lua_objects plotjuggler_qwt_objects)
 else()
     add_library(plotjuggler_base STATIC
         ${PLOTJUGGLER_BASE_SRC}
         ${PLOTJUGGLER_BASE_MOCS}
         )
 endif()
-
-# target_link_libraries(plotjuggler_base plotjuggler_qwt)
-
-target_include_directories(plotjuggler_base INTERFACE
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-  $<INSTALL_INTERFACE:include>
-)
 
 #########################  INSTALL  ####################################
 
@@ -224,8 +215,9 @@ elseif(COMPILING_WITH_AMENT)
     set(PJ_PLUGIN_INSTALL_DIRECTORY lib/${PROJECT_NAME} )
 
     ament_export_targets(
-        ${PROJECT_NAME}Targets
         export_plotjuggler_qwt
+        export_lua_static
+        ${PROJECT_NAME}Targets
         HAS_LIBRARY_TARGET)
     ament_package()
 
